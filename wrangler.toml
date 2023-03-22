@@ -1,6 +1,7 @@
 name = "moopnay-worker"
 main = "src/index.js"
 compatibility_date = "2023-03-22"
+account_id="15dcc9085cb794bb4f29d3e8177ac880"
 
 [env.production.vars]
 MOONPAY_BASE_URL = ""

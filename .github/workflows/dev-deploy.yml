@@ -15,7 +15,7 @@ jobs:
         uses: cloudflare/wrangler-action@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
-          command: wrangler publish --env goerli
+          command: publish --env goerli
           secrets: |
             SECRET_MOONPAY_KEY
         env:

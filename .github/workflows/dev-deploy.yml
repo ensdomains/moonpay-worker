@@ -1,0 +1,22 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      - uses: actions/checkout@v2
+      - name: Publish
+        uses: cloudflare/wrangler-action@2.0.0
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          command: wrangler publish --env goerli
+          secrets: |
+            SECRET_MOONPAY_KEY
+        env:
+          SECRET_MOONPAY_KEY: ${{ secrets.SECRET_MOONPAY_KEY_GOERLI }}

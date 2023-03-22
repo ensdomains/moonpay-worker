@@ -7,10 +7,9 @@ MOONPAY_BASE_URL = ""
 NAMEWRAPPER_CONTRACT_ADDRESS = ""
 PUBLIC_MOONPAY_KEY = ""
 
-[env.dev]
-name = "moonpay-worker-goerli"
+[env.goerli]
 
-[env.dev.vars]
+[env.goerli.vars]
 MOONPAY_BASE_URL = "https://buy-sandbox.moonpay.com/nft"
 NAMEWRAPPER_CONTRACT_ADDRESS = "0x57f1887a8BF19b14fC0dF6Fd9B2acc9Af147eA85"
 PUBLIC_MOONPAY_KEY = "pk_test_SLxZv3k7oHdSL1hdBFuX9mNxCblArvH"

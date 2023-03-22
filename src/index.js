@@ -6,13 +6,13 @@ const corsHeaders = {
 
 export default {
   async fetch(request, env) {
-    return await handleRequest(request).catch(
+    return await handleRequest(request, env).catch(
       (err) => new Response(err.stack, { status: 500 })
     );
   },
 };
 
-async function handleRequest(request) {
+async function handleRequest(request, env) {
   const { pathname } = new URL(request.url);
 
   if (pathname.startsWith("/signedurl")) {
@@ -25,9 +25,9 @@ async function handleRequest(request) {
     const urlEncodedMetadata = encodeURIComponent(JSON.stringify(metadata));
 
     const unsignedUrl =
-      MOONPAY_BASE_URL +
-      `?apiKey=${PUBLIC_MOONPAY_KEY}` +
-      `&contractAddress=${NAMEWRAPPER_CONTRACT_ADDRESS}` +
+      env.MOONPAY_BASE_URL +
+      `?apiKey=${env.PUBLIC_MOONPAY_KEY}` +
+      `&contractAddress=${env.NAMEWRAPPER_CONTRACT_ADDRESS}` +
       `&tokenId=${tokenId}` +
       `&metadata=${urlEncodedMetadata}` +
       `&externalTransactionId=${crypto.randomUUID()}`;
@@ -35,7 +35,7 @@ async function handleRequest(request) {
     const dataToAuthenticate = new URL(unsignedUrl).search;
 
     const encoder = new TextEncoder();
-    const secretKeyData = encoder.encode(SECRET_MOONPAY_KEY);
+    const secretKeyData = encoder.encode(env.SECRET_MOONPAY_KEY);
     const key = await crypto.subtle.importKey(
       "raw",
       secretKeyData,
@@ -71,7 +71,7 @@ async function handleRequest(request) {
       `https://api.moonpay.com/v1/transactions?limit=1&externalTransactionId=${externalTransactionId}`,
       {
         headers: {
-          Authorization: `Api-Key ${SECRET_MOONPAY_KEY}`,
+          Authorization: `Api-Key ${env.SECRET_MOONPAY_KEY}`,
         },
       }
     );

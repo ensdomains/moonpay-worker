@@ -3,10 +3,10 @@ main = "src/index.js"
 compatibility_date = "2023-03-22"
 account_id="15dcc9085cb794bb4f29d3e8177ac880"
 
-[env.production.vars]
-MOONPAY_BASE_URL = "https://api.moonpay.com"
+[env]
+MOONPAY_BASE_URL = "https://buy-sandbox.moonpay.com/nft"
 NAMEWRAPPER_CONTRACT_ADDRESS = ""
-PUBLIC_MOONPAY_KEY = ""
+PUBLIC_MOONPAY_KEY = "pk_live_AMVCsLuP5YVkWSRLbUEvMxKUCjpbyb"
 
 [env.goerli.vars]
 MOONPAY_BASE_URL = "https://buy-sandbox.moonpay.com/nft"

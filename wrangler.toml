@@ -1,16 +1,14 @@
 name = "moopnay-worker"
 main = "src/index.js"
 compatibility_date = "2023-03-22"
+account_id="15dcc9085cb794bb4f29d3e8177ac880"
 
-[env.production.vars]
-MOONPAY_BASE_URL = ""
-NAMEWRAPPER_CONTRACT_ADDRESS = ""
-PUBLIC_MOONPAY_KEY = ""
+[env]
+MOONPAY_BASE_URL = "https://buy.moonpay.com/nft"
+NAMEWRAPPER_CONTRACT_ADDRESS = "0xD4416b13d2b3a9aBae7AcD5D6C2BbDBE25686401"
+PUBLIC_MOONPAY_KEY = "pk_live_AMVCsLuP5YVkWSRLbUEvMxKUCjpbyb"
 
-[env.dev]
-name = "moonpay-worker-goerli"
-
-[env.dev.vars]
+[env.goerli.vars]
 MOONPAY_BASE_URL = "https://buy-sandbox.moonpay.com/nft"
-NAMEWRAPPER_CONTRACT_ADDRESS = "0x57f1887a8BF19b14fC0dF6Fd9B2acc9Af147eA85"
+NAMEWRAPPER_CONTRACT_ADDRESS = "0x114D4603199df73e7D157787f8778E21fCd13066"
 PUBLIC_MOONPAY_KEY = "pk_test_SLxZv3k7oHdSL1hdBFuX9mNxCblArvH"

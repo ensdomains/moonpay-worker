@@ -1,9 +1,9 @@
-name = "moopnay-worker"
+name = "moonpay-worker"
 main = "src/index.js"
 compatibility_date = "2023-03-22"
 account_id="15dcc9085cb794bb4f29d3e8177ac880"
 
-[env.vars]
+[vars]
 MOONPAY_BASE_URL = "https://buy.moonpay.com/nft"
 NAMEWRAPPER_CONTRACT_ADDRESS = "0xD4416b13d2b3a9aBae7AcD5D6C2BbDBE25686401"
 PUBLIC_MOONPAY_KEY = "pk_live_AMVCsLuP5YVkWSRLbUEvMxKUCjpbyb"

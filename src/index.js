@@ -20,6 +20,7 @@ async function handleRequest(request, env) {
     let tokenId = searchParams.get("tokenId");
     let name = searchParams.get("name");
     let duration = searchParams.get("duration");
+    let walletAddress = searchParams.get("walletAddress");
 
     const metadata = { name, duration };
     const urlEncodedMetadata = encodeURIComponent(JSON.stringify(metadata));
@@ -30,7 +31,8 @@ async function handleRequest(request, env) {
       `&contractAddress=${env.NAMEWRAPPER_CONTRACT_ADDRESS}` +
       `&tokenId=${tokenId}` +
       `&metadata=${urlEncodedMetadata}` +
-      `&externalTransactionId=${crypto.randomUUID()}`;
+      `&externalTransactionId=${crypto.randomUUID()}` +
+      `&walletAddress=${walletAddress}`;
 
     const dataToAuthenticate = new URL(unsignedUrl).search;
 

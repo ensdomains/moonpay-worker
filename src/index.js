@@ -21,6 +21,7 @@ async function handleRequest(request, env) {
     let name = searchParams.get("name");
     let duration = searchParams.get("duration");
     let walletAddress = searchParams.get("walletAddress");
+    //test
 
     const metadata = { name, duration };
     const urlEncodedMetadata = encodeURIComponent(JSON.stringify(metadata));

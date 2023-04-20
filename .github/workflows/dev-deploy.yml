@@ -16,3 +16,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           command: publish --env goerli
+          secrets: |
+            SECRET_MOONPAY_KEY
+        env:
+          SECRET_MOONPAY_KEY: ${{ secrets.SECRET_MOONPAY_KEY }}

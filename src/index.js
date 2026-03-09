@@ -30,10 +30,10 @@ async function handleRequest(request, env) {
       env.MOONPAY_BASE_URL +
       `?apiKey=${env.PUBLIC_MOONPAY_KEY}` +
       `&contractAddress=${env.NAMEWRAPPER_CONTRACT_ADDRESS}` +
-      `&tokenId=${tokenId}` +
+      `&tokenId=${encodeURIComponent(tokenId)}` +
       `&metadata=${urlEncodedMetadata}` +
       `&externalTransactionId=${crypto.randomUUID()}` +
-      `&walletAddress=${walletAddress}`;
+      `&walletAddress=${encodeURIComponent(walletAddress)}`;
 
     const dataToAuthenticate = new URL(unsignedUrl).search;
 
@@ -71,7 +71,7 @@ async function handleRequest(request, env) {
     let externalTransactionId = searchParams.get("externalTransactionId");
 
     const response = await fetch(
-      `https://api.moonpay.com/v1/transactions?limit=1&externalTransactionId=${externalTransactionId}`,
+      `https://api.moonpay.com/v1/transactions?limit=1&externalTransactionId=${encodeURIComponent(externalTransactionId)}`,
       {
         headers: {
           Authorization: `Api-Key ${env.SECRET_MOONPAY_KEY}`,

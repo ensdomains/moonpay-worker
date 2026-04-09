@@ -4,10 +4,15 @@ const corsHeaders = {
   "Access-Control-Max-Age": "86400",
 };
 
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 export default {
   async fetch(request, env) {
     return await handleRequest(request, env).catch(
-      (err) => new Response(err.stack, { status: 500 })
+      () => new Response(JSON.stringify({ error: "Internal server error" }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      })
     );
   },
 };
@@ -70,6 +75,13 @@ async function handleRequest(request, env) {
     const { searchParams } = new URL(request.url);
     let externalTransactionId = searchParams.get("externalTransactionId");
 
+    if (!externalTransactionId || !UUID_RE.test(externalTransactionId)) {
+      return new Response(
+        JSON.stringify({ error: "Valid externalTransactionId is required" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     const response = await fetch(
       `https://api.moonpay.com/v1/transactions?limit=1&externalTransactionId=${encodeURIComponent(externalTransactionId)}`,
       {
@@ -79,8 +91,23 @@ async function handleRequest(request, env) {
       }
     );
     const result = await response.json();
-    return new Response(JSON.stringify(result), {
-      headers: { ...corsHeaders },
+
+    // Only return fields the frontend needs — don't proxy sensitive payment details
+    if (!Array.isArray(result)) {
+      return new Response(
+        JSON.stringify({ error: "Transaction not found" }),
+        { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const sanitized = result.map(tx => ({
+      id: tx.id,
+      status: tx.status,
+      createdAt: tx.createdAt,
+    }));
+
+    return new Response(JSON.stringify(sanitized), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   }
 }
